@@ -1,14 +1,17 @@
 package org.katrin;
 
+import org.katrin.model.Gender;
+import org.katrin.model.Pet;
+
 import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class PetService {
+public class MenuOptionService {
     private final Scanner scanner;
 
-    public PetService(){
+    public MenuOptionService(){
         this.scanner = new Scanner(System.in);
     }
 
@@ -32,7 +35,10 @@ public class PetService {
     }
 
     int getLastPetId(List<Pet> pets){
-        return pets.getLast().getId();
+        if (!pets.isEmpty())
+            return pets.getLast().getId();
+        else
+            return 0;
     }
 
     private int ageInput(PrintStream out){

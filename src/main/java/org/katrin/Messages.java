@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum Messages {
     INVALID_INPUT("Invalid input. Try again!"),
     NO_SUCH_PET("There is no pet with this id!"),
+    IO_EXCEPTION("An IO exception occurred."),
     MENU_OPTIONS("""
                  
                  ------MENU------

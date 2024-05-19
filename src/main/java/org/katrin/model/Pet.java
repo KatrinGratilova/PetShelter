@@ -1,4 +1,4 @@
-package org.katrin;
+package org.katrin.model;
 
 import lombok.*;
 

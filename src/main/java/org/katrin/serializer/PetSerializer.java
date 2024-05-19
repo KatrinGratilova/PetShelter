@@ -2,8 +2,7 @@ package org.katrin.serializer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import org.katrin.Pet;
+import org.katrin.model.Pet;
 
 import java.io.File;
 import java.io.IOException;
