@@ -28,12 +28,14 @@ public class MenuOptionHandler {
     }
 
     public void addPet() {
-        pets.add(menuService.leavePet(out, pets));
+        pets.add(menuService.leavePet(out, getLastPetId()));
         out.println("The pet was added to pet shelter!");
     }
 
     public void removePet() {
-        int petId = menuService.takePet(out);
+        int petId = menuService.takePet(out, getLastPetId());
+        if (petId ==0)
+            return;
 
         Pet petToDelete = pets.stream().filter(p -> p.getId() == petId).findFirst().orElse(null);
         if (petToDelete != null) {
@@ -41,6 +43,13 @@ public class MenuOptionHandler {
             out.println("Pet №" + petId + " was adopted!");
         } else
             out.println(Messages.NO_SUCH_PET.getMessage());
+    }
+
+    private int getLastPetId(){
+        if (!pets.isEmpty())
+            return pets.getLast().getId();
+        else
+            return 0;
     }
 
     public void showPets() {

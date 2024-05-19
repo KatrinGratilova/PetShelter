@@ -8,7 +8,7 @@ public class PetShelterApplication {
     private final Scanner scanner;
     private final MenuOptionHandler optionHandler;
 
-    public PetShelterApplication(){
+    public PetShelterApplication() {
         out = new PrintStream(System.out);
         scanner = new Scanner(System.in);
         optionHandler = new MenuOptionHandler();
@@ -19,7 +19,7 @@ public class PetShelterApplication {
         shelterApp.run();
     }
 
-    public void run(){
+    public void run() {
         int menuOption;
         boolean exit = false;
         do {
@@ -47,16 +47,14 @@ public class PetShelterApplication {
         while (!exit);
     }
 
-    private int optionInput(){
-        int menuOption = - 1;
-        do {
-            try {
-                out.print("Choose an option: ");
-                menuOption = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                out.println(Messages.INVALID_INPUT.getMessage());
-            }
-        } while (menuOption < 0);
+    private int optionInput() {
+        int menuOption;
+        try {
+            out.print("Choose an option: ");
+            menuOption = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
         return menuOption;
     }
 }

@@ -14,9 +14,9 @@ public class MenuOptionService {
         this.scanner = new Scanner(System.in);
     }
 
-    Pet leavePet(PrintStream out, List<Pet> pets) {
+    public Pet leavePet(PrintStream out, int lastPetId) {
         Pet.PetBuilder builder = Pet.builder();
-        builder.id(getLastPetId(pets) + 1);
+        builder.id(lastPetId + 1);
 
         out.println("Fill in your pet information:");
         out.print("Name: ");
@@ -30,13 +30,6 @@ public class MenuOptionService {
         builder.gender(genderInput(out));
 
         return builder.build();
-    }
-
-    int getLastPetId(List<Pet> pets){
-        if (!pets.isEmpty())
-            return pets.getLast().getId();
-        else
-            return 0;
     }
 
     private int ageInput(PrintStream out){
@@ -67,7 +60,7 @@ public class MenuOptionService {
         return gender;
     }
 
-    int takePet(PrintStream out) {
+    public int takePet(PrintStream out, int lastPetId) {
         int petId = -1;
         do {
             try {
@@ -76,12 +69,11 @@ public class MenuOptionService {
 
                 if (petId == 0) {
                     out.println("You returned to menu.");
-                    break;
                 }
             } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
-        } while (petId < 0);
+        } while (petId < 0 || petId > lastPetId);
         return petId;
     }
 }
