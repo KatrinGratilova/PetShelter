@@ -18,7 +18,7 @@ public class MenuOptionService {
     Pet leavePet(PrintStream out, List<Pet> pets) {
         int petCount = getLastPetId(pets);
 
-        Pet.PetBuilder builder = new Pet.PetBuilder();
+        Pet.PetBuilder builder = Pet.builder();
         builder.id(++petCount);
         out.println("Fill in your pet information:");
         out.print("Name: ");
