@@ -13,7 +13,8 @@ public enum Messages {
                  1. View all pets;
                  2. Give up a pet;
                  3. Adopt a pet;
-                 4. Exit.""");
+                 4. Exit.
+                 """);
 
     private final String message;
 

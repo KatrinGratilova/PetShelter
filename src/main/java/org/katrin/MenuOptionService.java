@@ -4,7 +4,6 @@ import org.katrin.model.Gender;
 import org.katrin.model.Pet;
 
 import java.io.PrintStream;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,10 +15,9 @@ public class MenuOptionService {
     }
 
     Pet leavePet(PrintStream out, List<Pet> pets) {
-        int petCount = getLastPetId(pets);
-
         Pet.PetBuilder builder = Pet.builder();
-        builder.id(++petCount);
+        builder.id(getLastPetId(pets) + 1);
+
         out.println("Fill in your pet information:");
         out.print("Name: ");
         builder.name(scanner.nextLine());
@@ -46,13 +44,11 @@ public class MenuOptionService {
         do {
             try {
                 out.print("Age: ");
-                age = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
+                age = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
         } while (age < 0);
-        scanner.nextLine();
         return age;
     }
 
@@ -61,9 +57,9 @@ public class MenuOptionService {
         do {
             out.print("Gender (male/female): ");
             String inputGender = scanner.nextLine();
-            if (inputGender.equals("male"))
+            if (inputGender.equalsIgnoreCase("male"))
                 gender = Gender.MALE;
-            else if (inputGender.equals("female"))
+            else if (inputGender.equalsIgnoreCase("female"))
                 gender = Gender.FEMALE;
             else
                 out.println(Messages.INVALID_INPUT.getMessage());
@@ -76,16 +72,13 @@ public class MenuOptionService {
         do {
             try {
                 out.print("Enter pet id (0 to return to menu): ");
-                petId = scanner.nextInt();
+                petId = Integer.parseInt(scanner.nextLine());
 
                 if (petId == 0) {
                     out.println("You returned to menu.");
                     break;
-                } else if (petId < 0) {
-                    out.println(Messages.NO_SUCH_PET.getMessage());
                 }
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
+            } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
         } while (petId < 0);

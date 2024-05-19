@@ -19,7 +19,7 @@ public class MenuOptionHandler {
     private final Path PETS_FILE_PATH = Path.of("src/main/resources/pets.json");
     private final File petsFile;
 
-    public MenuOptionHandler(){
+    public MenuOptionHandler() {
         menuService = new MenuOptionService();
         out = new PrintStream(System.out);
         petsFile = PETS_FILE_PATH.toFile();
@@ -27,19 +27,15 @@ public class MenuOptionHandler {
         pets = getAllPetsFromFile();
     }
 
-    public void addPet(){
+    public void addPet() {
         pets.add(menuService.leavePet(out, pets));
         out.println("The pet was added to pet shelter!");
     }
 
-    public void removePet(){
+    public void removePet() {
         int petId = menuService.takePet(out);
-        Pet petToDelete = null;
-        for (Pet pet : pets) {
-            if (pet.getId() == petId) {
-                petToDelete = pet;
-            }
-        }
+
+        Pet petToDelete = pets.stream().filter(p -> p.getId() == petId).findFirst().orElse(null);
         if (petToDelete != null) {
             pets.remove(petToDelete);
             out.println("Pet №" + petId + " was adopted!");
@@ -48,16 +44,19 @@ public class MenuOptionHandler {
     }
 
     public void showPets() {
-        out.println("------ALL PETS IN SHELTER------");
-        pets.forEach(pet -> out.println(pet.toString()));
+        out.println("--All pets in shelter--");
+        if (!pets.isEmpty())
+            pets.forEach(pet -> out.println(pet.toString()));
+        else
+            out.println("There are no pets in shelter!");
     }
 
-    public void exitMenu(){
+    public void exitMenu() {
         savePetsToFile();
         out.println("Goodbye!");
     }
 
-    private void savePetsToFile(){
+    private void savePetsToFile() {
         try {
             serializer.serializeList(petsFile, pets);
         } catch (IOException e) {
@@ -65,7 +64,7 @@ public class MenuOptionHandler {
         }
     }
 
-    private List<Pet> getAllPetsFromFile(){
+    private List<Pet> getAllPetsFromFile() {
         try {
             if (petsFile.exists())
                 return serializer.deserializeList(petsFile);

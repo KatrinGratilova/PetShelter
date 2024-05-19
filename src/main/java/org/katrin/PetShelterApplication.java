@@ -1,7 +1,6 @@
 package org.katrin;
 
 import java.io.PrintStream;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PetShelterApplication {
@@ -52,14 +51,12 @@ public class PetShelterApplication {
         int menuOption = - 1;
         do {
             try {
-                out.print("\nChoose an option: ");
-                menuOption = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
+                out.print("Choose an option: ");
+                menuOption = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
         } while (menuOption < 0);
-        scanner.nextLine();
         return menuOption;
     }
 }
