@@ -5,11 +5,16 @@ import static org.junit.Assert.assertNotNull;
 
 
 import java.io.ByteArrayInputStream;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.katrin.model.Pet;
 
 public class MenuOptionServiceTest {
     private ByteArrayInputStream inContent;
+    private int lastPetId;
 
     @Test
     public void testLeavePet_Ok(){
@@ -20,7 +25,7 @@ public class MenuOptionServiceTest {
 
         MenuOptionService menuOptionService = new MenuOptionService();
 
-        int lastPetId = 0;
+        lastPetId = 0;
         Pet pet = menuOptionService.leavePet(System.out, lastPetId);
 
         assertNotNull(pet);
@@ -34,14 +39,14 @@ public class MenuOptionServiceTest {
 
     @Test
     public void testLeavePet_IncorrectAgeInput(){
-        String input = "Test\nDog\nLabrador\n-3\nf\n4\nMale\n";
+        String input = "Test\nDog\nLabrador\n-3\nf\n4\nFemale\n";
 
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
 
         MenuOptionService menuOptionService = new MenuOptionService();
 
-        int lastPetId = 0;
+        lastPetId = 0;
         Pet pet = menuOptionService.leavePet(System.out, lastPetId);
 
         assertNotNull(pet);
@@ -50,7 +55,7 @@ public class MenuOptionServiceTest {
         assertEquals("Dog", pet.getType());
         assertEquals("Labrador", pet.getBreed());
         assertEquals(4, pet.getAge());
-        assertEquals("Male", pet.getGender().getMessage());
+        assertEquals("Female", pet.getGender().getMessage());
     }
 
     @Test
@@ -62,7 +67,7 @@ public class MenuOptionServiceTest {
 
         MenuOptionService menuOptionService = new MenuOptionService();
 
-        int lastPetId = 0;
+        lastPetId = 0;
         Pet pet = menuOptionService.leavePet(System.out, lastPetId);
 
         assertNotNull(pet);
@@ -81,7 +86,7 @@ public class MenuOptionServiceTest {
 
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
-        int lastPetId = 2;
+        lastPetId = 2;
 
         MenuOptionService menuService = new MenuOptionService();
         int actualPetId = menuService.takePet(System.out, lastPetId);
@@ -96,7 +101,7 @@ public class MenuOptionServiceTest {
 
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
-        int lastPetId = 0;
+        lastPetId = 0;
 
         MenuOptionService menuService = new MenuOptionService();
         int actualPetId = menuService.takePet(System.out, lastPetId);
@@ -111,7 +116,7 @@ public class MenuOptionServiceTest {
 
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
-        int lastPetId = 33;
+        lastPetId = 33;
 
         MenuOptionService menuService = new MenuOptionService();
         int actualPetId = menuService.takePet(System.out, lastPetId);
@@ -121,7 +126,7 @@ public class MenuOptionServiceTest {
 
     @Test
     public void takePet_IncorrectIdInput(){
-        int lastPetId = 33;
+        lastPetId = 33;
         int expectedPetId = 2; // status where there are no pets
         String input = "df\n78\n-1\n" + expectedPetId + "\n";
 

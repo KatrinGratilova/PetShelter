@@ -1,6 +1,7 @@
 package org.katrin;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import lombok.Getter;
 import org.katrin.model.Pet;
 import org.katrin.serializer.PetSerializer;
 
@@ -10,17 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuOptionHandler {
+    @Getter
     private final List<Pet> pets;
     private final MenuOptionService menuService;
     private final PrintStream out;
     private final PetSerializer serializer;
-    private final Path PETS_FILE_PATH = Path.of("src/main/resources/pets.json");
     private final File petsFile;
 
-    public MenuOptionHandler() {
+    public MenuOptionHandler(Path petsFilePath) {
         menuService = new MenuOptionService();
         out = new PrintStream(System.out);
-        petsFile = PETS_FILE_PATH.toFile();
+        petsFile = petsFilePath.toFile();
         serializer = new PetSerializer(new JsonMapper());
         pets = getAllPetsFromFile();
     }

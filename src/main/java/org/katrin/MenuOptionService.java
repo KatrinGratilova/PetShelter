@@ -3,7 +3,6 @@ package org.katrin;
 import org.katrin.model.Gender;
 import org.katrin.model.Pet;
 
-import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.Scanner;
 

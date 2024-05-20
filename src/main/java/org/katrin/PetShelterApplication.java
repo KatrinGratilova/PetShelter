@@ -1,17 +1,20 @@
 package org.katrin;
 
 import java.io.PrintStream;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class PetShelterApplication {
     private final PrintStream out;
     private final Scanner scanner;
     private final MenuOptionHandler optionHandler;
+    private final Path PETS_FILE_PATH = Path.of("src/main/resources/pets.json");
+
 
     public PetShelterApplication() {
         out = new PrintStream(System.out);
         scanner = new Scanner(System.in);
-        optionHandler = new MenuOptionHandler();
+        optionHandler = new MenuOptionHandler(PETS_FILE_PATH);
     }
 
     public static void main(String[] args) {
