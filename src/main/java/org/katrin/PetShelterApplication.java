@@ -53,7 +53,7 @@ public class PetShelterApplication {
             out.print("Choose an option: ");
             menuOption = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            return -1;
+            return -1; // option = -1 will be proceeded in default switch case
         }
         return menuOption;
     }

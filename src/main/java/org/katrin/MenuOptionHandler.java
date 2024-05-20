@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.katrin.model.Pet;
 import org.katrin.serializer.PetSerializer;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,7 @@ public class MenuOptionHandler {
 
     public void removePet() {
         int petId = menuService.takePet(out, getLastPetId());
-        if (petId ==0)
+        if (petId == 0 || petId == -1) // if client decided to return to menu or there are no pets
             return;
 
         Pet petToDelete = pets.stream().filter(p -> p.getId() == petId).findFirst().orElse(null);
@@ -49,7 +47,7 @@ public class MenuOptionHandler {
         if (!pets.isEmpty())
             return pets.getLast().getId();
         else
-            return 0;
+            return 0; // if there are no pets
     }
 
     public void showPets() {
@@ -57,7 +55,7 @@ public class MenuOptionHandler {
         if (!pets.isEmpty())
             pets.forEach(pet -> out.println(pet.toString()));
         else
-            out.println("There are no pets in shelter!");
+            out.println(Messages.NO_PETS.getMessage());
     }
 
     public void exitMenu() {

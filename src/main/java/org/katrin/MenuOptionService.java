@@ -3,8 +3,8 @@ package org.katrin;
 import org.katrin.model.Gender;
 import org.katrin.model.Pet;
 
+import java.io.BufferedReader;
 import java.io.PrintStream;
-import java.util.List;
 import java.util.Scanner;
 
 public class MenuOptionService {
@@ -33,7 +33,7 @@ public class MenuOptionService {
     }
 
     private int ageInput(PrintStream out){
-        int age = - 1;
+        int age = -1;
         do {
             try {
                 out.print("Age: ");
@@ -41,7 +41,7 @@ public class MenuOptionService {
             } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
-        } while (age < 0);
+        } while (age < 0); // check that age is not negative
         return age;
     }
 
@@ -62,6 +62,10 @@ public class MenuOptionService {
 
     public int takePet(PrintStream out, int lastPetId) {
         int petId = -1;
+        if (lastPetId == 0) {
+            out.println(Messages.NO_PETS.getMessage());
+            return petId;
+        }
         do {
             try {
                 out.print("Enter pet id (0 to return to menu): ");
@@ -73,7 +77,7 @@ public class MenuOptionService {
             } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
-        } while (petId < 0 || petId > lastPetId);
+        } while (petId < 0 || petId > lastPetId);  // check that id isn't negative and isn't bigger than last id in list
         return petId;
     }
 }
