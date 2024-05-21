@@ -45,10 +45,8 @@ public class MenuOptionHandler {
     }
 
     private int getLastPetId(){
-        if (!pets.isEmpty())
-            return pets.getLast().getId();
-        else
-            return 0; // if there are no pets
+        // if there are no pets, return 0
+        return !pets.isEmpty() ? pets.getLast().getId() : 0;
     }
 
     public void showPets() {

@@ -20,11 +20,10 @@ public class MenuOptionHandlerTest {
     private int lastPetId;
 
     @Test
-    public void addPet_Ok(){
+    public void addPet_Ok() {
         String input = "TestPet\nDog\nLabrador\n5\nMale\n";
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
-
         File petsFile = petsFilePath.toFile();
 
         List<Pet> expectedPets = new ArrayList<>();
@@ -42,19 +41,19 @@ public class MenuOptionHandlerTest {
 
         MenuOptionHandler menuHandler = new MenuOptionHandler(petsFilePath);
         menuHandler.addPet();
-
         List<Pet> actualPets = menuHandler.getPets();
+
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 
     @Test
-    public void removePet_PetDeletion(){
+    public void removePet_PetDeletion() throws IOException {
         String input = "1\n";
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
-
         File petsFile = petsFilePath.toFile();
+
         lastPetId = 0;
         List<Pet> expectedPets = new ArrayList<>(List.of(Pet.builder()
                 .id(++lastPetId)
@@ -65,27 +64,24 @@ public class MenuOptionHandlerTest {
                 .gender(Gender.MALE)
                 .build()));
 
-        try {
-            serializer.serializeList(petsFile, expectedPets);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        serializer.serializeList(petsFile, expectedPets);
+
         MenuOptionHandler menuHandler = new MenuOptionHandler(petsFilePath);
         menuHandler.removePet();
         expectedPets.removeFirst();
-
         List<Pet> actualPets = menuHandler.getPets();
+
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 
     @Test
-    public void removePet_ReturnToMenu(){
+    public void removePet_ReturnToMenu() throws IOException {
         String input = "0\n";
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
-
         File petsFile = petsFilePath.toFile();
+
         lastPetId = 0;
         List<Pet> expectedPets = new ArrayList<>(List.of(Pet.builder()
                 .id(++lastPetId)
@@ -96,21 +92,18 @@ public class MenuOptionHandlerTest {
                 .gender(Gender.MALE)
                 .build()));
 
-        try {
-            serializer.serializeList(petsFile, expectedPets);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        serializer.serializeList(petsFile, expectedPets);
+
         MenuOptionHandler menuHandler = new MenuOptionHandler(petsFilePath);
         menuHandler.removePet();
-
         List<Pet> actualPets = menuHandler.getPets();
+
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 
     @Test
-    public void removePet_NoPets(){
+    public void removePet_NoPets() {
         File petsFile = petsFilePath.toFile();
 
         List<Pet> expectedPets = new ArrayList<>();
@@ -120,11 +113,11 @@ public class MenuOptionHandlerTest {
 
         List<Pet> actualPets = menuHandler.getPets();
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 
     @Test
-    public void removePet_InvalidInput(){
+    public void removePet_InvalidInput() throws IOException {
         String input = "-3\nh\n90\n1\n";
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
@@ -140,18 +133,16 @@ public class MenuOptionHandlerTest {
                 .gender(Gender.MALE)
                 .build()));
 
-        try {
-            serializer.serializeList(petsFile, expectedPets);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        serializer.serializeList(petsFile, expectedPets);
+
         MenuOptionHandler menuHandler = new MenuOptionHandler(petsFilePath);
         menuHandler.removePet();
         expectedPets.removeFirst();
-
         List<Pet> actualPets = menuHandler.getPets();
+
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 
     @Test
@@ -172,10 +163,9 @@ public class MenuOptionHandlerTest {
 
         MenuOptionHandler menuHandler = new MenuOptionHandler(petsFilePath);
         menuHandler.exitMenu();
-
         List<Pet> actualPets = serializer.deserializeList(petsFile);
 
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 }

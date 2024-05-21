@@ -44,8 +44,9 @@ public class PetSerializerTest {
 
         assertTrue(petsFile.exists());
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
+
     @Test
     public void deserializeList_Ok() throws IOException {
         int lastPetId = 0;
@@ -72,6 +73,6 @@ public class PetSerializerTest {
 
         assertTrue(petsFile.exists());
         assertEquals(expectedPets, actualPets);
-        petsFile.delete();
+        petsFile.deleteOnExit();
     }
 }

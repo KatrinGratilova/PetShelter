@@ -9,17 +9,17 @@ public enum Messages {
     IO_EXCEPTION("An IO exception occurred."),
     NO_PETS("There are no pets in shelter!"),
     MENU_OPTIONS("""
-                 
-                 ------MENU------
-                 1. View all pets;
-                 2. Give up a pet;
-                 3. Adopt a pet;
-                 4. Exit.
-                 """);
+                             
+            ------MENU------
+            1. View all pets;
+            2. Give up a pet;
+            3. Adopt a pet;
+            4. Exit.
+            """);
 
     private final String message;
 
-    Messages(String message){
+    Messages(String message) {
         this.message = message;
     }
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MenuOptionService {
     private final Scanner scanner;
 
-    public MenuOptionService(){
+    public MenuOptionService() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -31,7 +31,7 @@ public class MenuOptionService {
         return builder.build();
     }
 
-    private int ageInput(PrintStream out){
+    private int ageInput(PrintStream out) {
         int age = -1;
         do {
             try {
@@ -44,7 +44,7 @@ public class MenuOptionService {
         return age;
     }
 
-    private Gender genderInput(PrintStream out){
+    private Gender genderInput(PrintStream out) {
         Gender gender = null;
         do {
             out.print("Gender (male/female): ");
@@ -70,9 +70,8 @@ public class MenuOptionService {
                 out.print("Enter pet id (0 to return to menu): ");
                 petId = Integer.parseInt(scanner.nextLine());
 
-                if (petId == 0) {
+                if (petId == 0)
                     out.println("You returned to menu.");
-                }
             } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }

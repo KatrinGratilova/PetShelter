@@ -9,7 +9,7 @@ public enum Gender {
 
     private final String message;
 
-    Gender (String message){
+    Gender(String message) {
         this.message = message;
     }
 }

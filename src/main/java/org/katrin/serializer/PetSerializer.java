@@ -3,6 +3,7 @@ package org.katrin.serializer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.katrin.model.Pet;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +28,7 @@ public class PetSerializer {
     }
 
     public List<Pet> deserializeList(File file) throws IOException {
-        return mapper.readValue(file, new TypeReference<>(){});
+        return mapper.readValue(file, new TypeReference<>() {
+        });
     }
 }
