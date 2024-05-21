@@ -16,7 +16,7 @@ public class PetShelterApplicationTest {
     }
 
     @Test
-    public void run_OptionDoesNotExists() {
+    public void run_OptionDoesNotExist() {
         String input = "-4\n9\n0\n4";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
