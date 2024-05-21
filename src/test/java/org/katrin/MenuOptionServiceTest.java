@@ -85,7 +85,7 @@ public class MenuOptionServiceTest {
     }
 
     @Test
-    public void takePet_noPets() {
+    public void takePet_NoPets() {
         String input = 2 + "\n";
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
@@ -99,7 +99,7 @@ public class MenuOptionServiceTest {
     }
 
     @Test
-    public void takePet_returnToMenu() {
+    public void takePet_ReturnToMenu() {
         int expectedPetId = 0; // status where there are no pets
 
         String input = expectedPetId + "\n";
