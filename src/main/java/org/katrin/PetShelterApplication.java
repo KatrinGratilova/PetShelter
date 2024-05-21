@@ -10,7 +10,6 @@ public class PetShelterApplication {
     private final MenuOptionHandler optionHandler;
     private final Path PETS_FILE_PATH = Path.of("src/main/resources/pets.json");
 
-
     public PetShelterApplication() {
         out = new PrintStream(System.out);
         scanner = new Scanner(System.in);

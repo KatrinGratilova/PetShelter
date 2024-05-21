@@ -44,7 +44,7 @@ public class MenuOptionHandler {
             out.println(Messages.NO_SUCH_PET.getMessage());
     }
 
-    private int getLastPetId(){
+    private int getLastPetId() {
         // if there are no pets, return 0
         return !pets.isEmpty() ? pets.getLast().getId() : 0;
     }

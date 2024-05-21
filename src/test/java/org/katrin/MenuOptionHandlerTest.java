@@ -77,7 +77,7 @@ public class MenuOptionHandlerTest {
 
     @Test
     public void removePet_ReturnToMenu() throws IOException {
-        String input = "0\n";
+        String input = "0\n"; // if user entered  0 tp return to menu
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
         File petsFile = petsFilePath.toFile();

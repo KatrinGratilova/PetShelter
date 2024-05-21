@@ -86,14 +86,13 @@ public class MenuOptionServiceTest {
 
     @Test
     public void takePet_noPets() {
-        int expectedPetId = -1; // status where there are no pets
-
         String input = 2 + "\n";
         inContent = new ByteArrayInputStream(input.getBytes());
         System.setIn(inContent);
 
         MenuOptionService menuService = new MenuOptionService();
         lastPetId = 0;
+        int expectedPetId = -1; // status where there are no pets
         int actualPetId = menuService.takePet(System.out, lastPetId);
 
         assertEquals(expectedPetId, actualPetId); // -1
