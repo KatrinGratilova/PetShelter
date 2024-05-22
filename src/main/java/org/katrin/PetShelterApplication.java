@@ -47,6 +47,8 @@ public class PetShelterApplication {
             }
         }
         while (!exit);
+        out.close();
+        scanner.close();
     }
 
     private int optionInput() {

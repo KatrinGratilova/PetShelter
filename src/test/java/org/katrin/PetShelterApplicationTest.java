@@ -1,6 +1,5 @@
 package org.katrin;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

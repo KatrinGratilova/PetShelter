@@ -60,6 +60,7 @@ public class MenuOptionHandler {
     public void exitMenu() {
         savePetsToFile();
         out.println("Goodbye!");
+        out.close();
     }
 
     private void savePetsToFile() {
