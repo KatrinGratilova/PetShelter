@@ -7,36 +7,38 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class MenuOptionService {
-    private final Scanner scanner;
+    private final PrintStream out;
+    private final Scanner in;
 
-    public MenuOptionService() {
-        this.scanner = new Scanner(System.in);
+    public MenuOptionService(PrintStream out, Scanner in) {
+        this.out = out;
+        this.in = in;
     }
 
-    public Pet leavePet(PrintStream out, int lastPetId) {
+    public Pet leavePet(int lastPetId) {
         Pet.PetBuilder builder = Pet.builder();
         builder.id(lastPetId + 1);
 
-        out.println("Fill in your pet information:");
-        out.print("Name: ");
-        builder.name(scanner.nextLine());
-        out.print("Type: ");
-        builder.type(scanner.nextLine());
-        out.print("Breed: ");
-        builder.breed(scanner.nextLine());
+        out.println(Messages.FILL_IN_PET_INFO.getMessage());
+        out.print(Messages.NAME.getMessage());
+        builder.name(in.nextLine());
+        out.print(Messages.TYPE.getMessage());
+        builder.type(in.nextLine());
+        out.print(Messages.BREED.getMessage());
+        builder.breed(in.nextLine());
 
-        builder.age(ageInput(out));
-        builder.gender(genderInput(out));
+        builder.age(ageInput());
+        builder.gender(genderInput());
 
         return builder.build();
     }
 
-    private int ageInput(PrintStream out) {
+    private int ageInput() {
         int age = -1;
         do {
             try {
-                out.print("Age: ");
-                age = Integer.parseInt(scanner.nextLine());
+                out.print(Messages.AGE.getMessage());
+                age = Integer.parseInt(in.nextLine());
             } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }
@@ -44,14 +46,14 @@ public class MenuOptionService {
         return age;
     }
 
-    private Gender genderInput(PrintStream out) {
+    private Gender genderInput() {
         Gender gender = null;
         do {
-            out.print("Gender (male/female): ");
-            String inputGender = scanner.nextLine();
-            if (inputGender.equalsIgnoreCase("male"))
+            out.print(Messages.GENDER.getMessage());
+            String inputGender = in.nextLine();
+            if (inputGender.equalsIgnoreCase(Gender.MALE.getMessage()))
                 gender = Gender.MALE;
-            else if (inputGender.equalsIgnoreCase("female"))
+            else if (inputGender.equalsIgnoreCase(Gender.FEMALE.getMessage()))
                 gender = Gender.FEMALE;
             else
                 out.println(Messages.INVALID_INPUT.getMessage());
@@ -59,7 +61,7 @@ public class MenuOptionService {
         return gender;
     }
 
-    public int takePet(PrintStream out, int lastPetId) {
+    public int takePet(int lastPetId) {
         int petId = -1;
         if (lastPetId == 0) {
             out.println(Messages.NO_PETS.getMessage());
@@ -67,11 +69,11 @@ public class MenuOptionService {
         }
         do {
             try {
-                out.print("Enter pet id (0 to return to menu): ");
-                petId = Integer.parseInt(scanner.nextLine());
+                out.print(Messages.ENTER_PET_ID.getMessage());
+                petId = Integer.parseInt(in.nextLine());
 
                 if (petId == 0)
-                    out.println("You returned to menu.");
+                    out.println(Messages.RETURNED_TO_MENU.getMessage());
             } catch (NumberFormatException e) {
                 out.println(Messages.INVALID_INPUT.getMessage());
             }

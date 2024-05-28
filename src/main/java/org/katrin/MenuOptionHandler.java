@@ -1,45 +1,43 @@
 package org.katrin;
 
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.Getter;
 import org.katrin.model.Pet;
 import org.katrin.serializer.PetSerializer;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuOptionHandler {
-    @Getter
-    private final List<Pet> pets;
+    private final File petsFile;
+    private final PetSerializer serializer;
     private final MenuOptionService menuService;
     private final PrintStream out;
-    private final PetSerializer serializer;
-    private final File petsFile;
+    @Getter
+    private final List<Pet> pets;
 
-    public MenuOptionHandler(Path petsFilePath) {
-        menuService = new MenuOptionService();
-        out = new PrintStream(System.out);
-        petsFile = petsFilePath.toFile();
-        serializer = new PetSerializer(new JsonMapper());
+    public MenuOptionHandler(File petsFile, PetSerializer serializer, MenuOptionService menuService, PrintStream out) {
+        this.petsFile = petsFile;
+        this.serializer = serializer;
+        this.menuService = menuService;
+        this.out = out;
         pets = getAllPetsFromFile();
     }
 
     public void addPet() {
-        pets.add(menuService.leavePet(out, getLastPetId()));
-        out.println("The pet was added to pet shelter!");
+        pets.add(menuService.leavePet(getLastPetId()));
+        out.println(Messages.PET_WAS_ADDED.getMessage());
     }
 
     public void removePet() {
-        int petId = menuService.takePet(out, getLastPetId());
+        int petId = menuService.takePet(getLastPetId());
         if (petId == 0 || petId == -1) // if client decided to return to menu or there are no pets
             return;
 
-        Pet petToDelete = pets.stream().filter(p -> p.getId() == petId).findFirst().orElse(null);
-        if (petToDelete != null) {
-            pets.remove(petToDelete);
-            out.println("Pet №" + petId + " was adopted!");
+        Pet toDelete = pets.stream().filter(p -> p.getId() == petId).findFirst().orElse(null);
+        if (toDelete != null) {
+            pets.remove(toDelete);
+            out.printf(Messages.PET_WAS_ADOPTED.getMessage(), petId);
         } else
             out.println(Messages.NO_SUCH_PET.getMessage());
     }
@@ -50,7 +48,7 @@ public class MenuOptionHandler {
     }
 
     public void showPets() {
-        out.println("--All pets in shelter--");
+        out.println(Messages.ALL_PETS.getMessage());
         if (!pets.isEmpty())
             pets.forEach(pet -> out.println(pet.toString()));
         else
@@ -59,7 +57,7 @@ public class MenuOptionHandler {
 
     public void exitMenu() {
         savePetsToFile();
-        out.println("Goodbye!");
+        out.println(Messages.GOODBYE.getMessage());
         out.close();
     }
 
@@ -67,7 +65,7 @@ public class MenuOptionHandler {
         try {
             serializer.serializeList(petsFile, pets);
         } catch (IOException e) {
-            out.println(Messages.IO_EXCEPTION.getMessage());
+            out.println(Messages.IO_EXCEPTION.getMessage()); // TODO: throw own exception
         }
     }
 
@@ -76,7 +74,7 @@ public class MenuOptionHandler {
             if (petsFile.exists())
                 return serializer.deserializeList(petsFile);
         } catch (IOException e) {
-            out.println(Messages.IO_EXCEPTION.getMessage());
+            out.println(Messages.IO_EXCEPTION.getMessage()); // TODO: throw own exception
         }
         return new ArrayList<>();
     }
