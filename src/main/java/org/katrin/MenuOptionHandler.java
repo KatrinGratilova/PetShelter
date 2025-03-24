@@ -1,10 +1,11 @@
 package org.katrin;
 
-import lombok.Getter;
 import org.katrin.model.Pet;
 import org.katrin.serializer.PetSerializer;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class MenuOptionHandler {
     private final PetSerializer serializer;
     private final MenuOptionService menuService;
     private final PrintStream out;
-    @Getter
     private final List<Pet> pets;
 
     public MenuOptionHandler(File petsFile, PetSerializer serializer, MenuOptionService menuService, PrintStream out) {
@@ -77,5 +77,9 @@ public class MenuOptionHandler {
             out.println(Messages.IO_EXCEPTION.getMessage()); // TODO: throw own exception
         }
         return new ArrayList<>();
+    }
+
+    public List<Pet> getPets() {
+        return this.pets;
     }
 }

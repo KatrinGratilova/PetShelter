@@ -1,8 +1,6 @@
 package org.katrin;
 
-import lombok.Getter;
 
-@Getter
 public enum Messages {
     INVALID_INPUT("Invalid input. Try again!"),
     NO_SUCH_PET("There is no pet with this id!"),
@@ -31,9 +29,14 @@ public enum Messages {
             4. Exit.
             """);
 
+    public String getMessage() {
+        return message;
+    }
+
     private final String message;
 
     Messages(String message) {
         this.message = message;
     }
+
 }
