@@ -28,7 +28,7 @@ public class PetShelterApplication {
     }
 
     public static void run() {
-        PetShelterApplication shelterApp = new PetShelterApplication(); // TODO: bullshit
+        PetShelterApplication shelterApp = new PetShelterApplication();
         int menuOption;
         boolean exit = false;
         do {
@@ -55,7 +55,7 @@ public class PetShelterApplication {
         int menuOption;
         try {
             out.print("Choose an option: ");
-            menuOption = Integer.parseInt(scanner.nextLine()); // TODO: do smth with next or nextInt
+            menuOption = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             return -1; // option = -1 will be proceeded in default switch case
         }

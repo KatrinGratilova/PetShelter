@@ -1,6 +1,5 @@
 package org.katrin;
 
-
 public enum Messages {
     INVALID_INPUT("Invalid input. Try again!"),
     NO_SUCH_PET("There is no pet with this id!"),

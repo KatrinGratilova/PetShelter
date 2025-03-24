@@ -65,7 +65,7 @@ public class MenuOptionHandler {
         try {
             serializer.serializeList(petsFile, pets);
         } catch (IOException e) {
-            out.println(Messages.IO_EXCEPTION.getMessage()); // TODO: throw own exception
+            out.println(Messages.IO_EXCEPTION.getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public class MenuOptionHandler {
             if (petsFile.exists())
                 return serializer.deserializeList(petsFile);
         } catch (IOException e) {
-            out.println(Messages.IO_EXCEPTION.getMessage()); // TODO: throw own exception
+            out.println(Messages.IO_EXCEPTION.getMessage());
         }
         return new ArrayList<>();
     }
